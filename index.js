@@ -13,8 +13,8 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('user connected');
-  socket.emit('message', { levi: 'hey how are you?' });
-  socket.on('another event', (data) => {
-    console.log('data: ', data);
+  socket.on('message', (msg) => {
+    console.log('message: ', msg);
+    io.emit('message', msg);
   });
 });
