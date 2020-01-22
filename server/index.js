@@ -1,27 +1,18 @@
 const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-const port = 3000;
+const routes = require('../routes');
 
-http.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+const PORT = 3000;
+
+http.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
-});
-
-app.get('/javascript', (req, res) => {
-  res.sendFile(__dirname + '/public/javascript.html');
-});
-
-app.get('/swift', (req, res) => {
-  res.sendFile(__dirname + '/public/swift.html');
-});
-
-app.get('/css', (req, res) => {
-  res.sendFile(__dirname + '/public/css.html');
-});
+app.get('/', routes.index);
+app.get('/javascript', routes.javascript);
+app.get('/swift', routes.swift);
+app.get('/css', routes.css);
 
 // tech namespace
 const tech = io.of('/tech');
